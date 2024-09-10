@@ -1,0 +1,22 @@
+import pandas as pd
+
+url = r"C:\Users\Puspa Cempaka\Documents\Coursera\Data For Exercise\Data Analyst with Python\Sample_Data1.csv"
+df = pd.read_csv(url, header=None)
+
+headers = ["CustomerID","Age","Gender","Income","PurchaseFrequency","AvgPurchaseValue","CLV"]
+df.columns = headers
+
+#print the TOP 2 rows from the data frame.
+print(df.head(2)) 
+print("\n")
+
+#checking the datatypes.
+print(df.dtypes)
+print("\n")
+
+#checking the statistical summary, including the non-numerical column.
+print(df.describe(include="all"))
+print("\n")
+
+#provide a concise summary of the data frame.
+print(df.info())
