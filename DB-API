@@ -1,0 +1,15 @@
+from dmodule import connect
+
+#create connection object
+connection = connect("database", "username", "pasword")
+
+#create cursor object
+cursor = connection.cursor()
+
+#run queries
+cursor.execute("SELECT * FROM Customers")
+results = cursor.fetchall()
+
+#free the resources
+cursor.close()
+connection.close()
