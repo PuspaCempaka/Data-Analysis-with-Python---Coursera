@@ -1,0 +1,37 @@
+import pandas as pd
+import matplotlib.pylab as plt
+import numpy as np
+
+url = r"https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
+df = pd.read_csv(url, header=None)
+
+headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num-of-doors","body-style",
+         "drive-wheels","engine-location","wheel-base", "length","width","height","curb-weight","engine-type",
+         "num-of-cylinders", "engine-size","fuel-system","bore","stroke","compression-ratio","horsepower",
+         "peak-rpm","city-mpg","highway-mpg","price"]
+df.columns = headers
+
+#replace data with "?" with NAN so it will be treat as Null
+df.replace("?", np.nan, inplace = True)
+
+#Calculate the mean value for the "normalized-losses" column. "axis=0" means to drop the missing value from mean calculation
+avg_norm_loss = df["normalized-losses"].astype("float").mean(axis=0)
+
+#Replace "NaN" with mean value in "normalized-losses"
+df["normalized-losses"]=df["normalized-losses"].replace(np.nan, avg_norm_loss)
+
+#Repeat it for other column with missing value
+
+avg_bore=df['bore'].astype('float').mean(axis=0)
+df["bore"]=df["bore"].replace(np.nan, avg_bore)
+
+avg_stroke=df['stroke'].astype('float').mean(axis=0)
+df["stroke"]=df["stroke"].replace(np.nan, avg_bore)
+
+avg_horsepower = df['horsepower'].astype('float').mean(axis=0)
+df['horsepower']=df['horsepower'].replace(np.nan, avg_horsepower)
+
+avg_peakrpm=df['peak-rpm'].astype('float').mean(axis=0)
+df['peak-rpm']=df['peak-rpm'].replace(np.nan, avg_peakrpm)
+
+print(df.head(20))
