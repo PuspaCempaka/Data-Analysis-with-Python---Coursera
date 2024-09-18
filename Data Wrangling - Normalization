@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pylab as plt
+import numpy as np
+
+url = r"https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
+df = pd.read_csv(url, header=None)
+
+headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num-of-doors","body-style",
+         "drive-wheels","engine-location","wheel-base", "length","width","height","curb-weight","engine-type",
+         "num-of-cylinders", "engine-size","fuel-system","bore","stroke","compression-ratio","horsepower",
+         "peak-rpm","city-mpg","highway-mpg","price"]
+df.columns = headers
+
+#replace data with "?" with NAN so it will be treat as Null
+df.replace("?", np.nan, inplace = True)
+
+print(df['length'].head(20), df['width'].head(20))
+
+# replace (original value) by (original value)/(maximum value)
+df['length'] = round(df['length']/df['length'].max(),2)
+df['width'] = round(df['width']/df['width'].max(),2)
+
+print(df['length'].head(20), df['width'].head(20))
