@@ -1,0 +1,28 @@
+import pandas as pd
+import matplotlib.pylab as plt
+import numpy as np
+
+url = r"https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
+df = pd.read_csv(url, header=None)
+
+headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num-of-doors","body-style",
+         "drive-wheels","engine-location","wheel-base", "length","width","height","curb-weight","engine-type",
+         "num-of-cylinders", "engine-size","fuel-system","bore","stroke","compression-ratio","horsepower",
+         "peak-rpm","city-mpg","highway-mpg","price"]
+df.columns = headers
+
+#replace data with "?" with NAN so it will be treat as Null
+df.replace("?", np.nan, inplace = True)
+
+#identify the frequent occuring data by using the value.counts() and idxmax().
+#value.counts() will list the data and its frequency to appear, and add idmax() will identify the most frequent occuring data from this list.
+
+df['num-of-doors'].value_counts()
+df['num-of-doors'].value_counts().idxmax()
+
+#print(df['num-of-doors'].value_counts().idxmax()) --> to check
+
+#since we know the most frequent occuring data is "four" then we will replace the missing value in column "num-of-doors" with "four".
+df["num-of-doors"]=df["num-of-doors"].replace(np.nan, "four")
+
+print(df["num-of-doors"].head(50))
