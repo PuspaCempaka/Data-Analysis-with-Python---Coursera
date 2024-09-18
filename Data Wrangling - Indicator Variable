@@ -1,0 +1,20 @@
+import pandas as pd
+import matplotlib.pylab as plt
+import numpy as np
+
+url = r"https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
+df = pd.read_csv(url, header=None)
+
+headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num-of-doors","body-style",
+         "drive-wheels","engine-location","wheel-base", "length","width","height","curb-weight","engine-type",
+         "num-of-cylinders", "engine-size","fuel-system","bore","stroke","compression-ratio","horsepower",
+         "peak-rpm","city-mpg","highway-mpg","price"]
+df.columns = headers
+
+#replace data with "?" with NAN so it will be treat as Null
+df.replace("?", np.nan, inplace = True)
+
+dummy_variable_1 = pd.get_dummies(df["fuel-type"])
+dummy_variable_1.rename(columns={'gas':'fuel-type-gas', 'diesel':'fuel-type-diesel'})
+
+print(dummy_variable_1.head(20))
