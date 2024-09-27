@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pylab as plt
+
+url=r'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-SkillsNetwork/labs/FinalModule_Coursera/data/kc_house_data_NaN.csv'
+
+df = pd.read_csv(url)
+df = df.drop(['id','Unnamed: 0'], axis=1)
+
+sns.boxplot(x='waterfront', y='price', data=df).set(xlabel='waterfront', ylabel='price')
+plt.show()
